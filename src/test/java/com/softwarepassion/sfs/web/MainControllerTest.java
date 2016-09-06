@@ -1,4 +1,4 @@
-package com.softwarepassion.sfs.integration;
+package com.softwarepassion.sfs.web;
 
 import com.softwarepassion.sfs.SfsMysqlApplication;
 import org.junit.Before;
@@ -24,12 +24,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SfsMysqlApplication.class)
 @WebAppConfiguration
-public class LoginIntegrationTest {
-
+public class MainControllerTest {
     @Autowired
     private WebApplicationContext context;
 
