@@ -38,6 +38,7 @@ dependencies {
     compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE')
     compile('org.webjars:bootstrap:3.1.0')
     compile('org.webjars:holderjs:2.5.2')
+    compile('org.webjars:jquery:3.1.0')
     runtime('com.h2database:h2')
     runtime('mysql:mysql-connector-java')
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')

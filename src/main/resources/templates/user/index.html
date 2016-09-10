@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="spring fast starter application"/>
     <meta name="author" content="softwarepassion.com"/>
-    <link rel="icon" href="../../favicon.ico"/>
+    <link rel="icon" href="/images/favicon.ico" th:href="@{/images/favicon.ico}"/>
 
     <title>Dashboard Spring Fast Starter Application</title>
 
@@ -15,15 +15,15 @@
     <link rel='stylesheet' th:href='@{/webjars/bootstrap/3.1.0/css/bootstrap.min.css}'/>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css" th:href="@{/css/ie10-viewport-bug-workaround.css}"/>
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}"/>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
-    <script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script><![endif]-->
+    <script th:src="@{/js/ie-emulation-modes-warning.js}"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -222,14 +222,11 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script><![CDATA[
-window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
-]]></script>
+<script th:src='@{/webjars/jquery/3.1.0/jquery.min.js}'></script>
 <script th:src='@{/webjars/bootstrap/3.1.0/js/bootstrap.min.js}'></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <script th:src='@{/webjars/holderjs/2.5.2/holder.min.js}'></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+<script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
 </body>
 </html>
