@@ -10,6 +10,10 @@
         <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
             Logged in user: <span sec:authentication="name"></span> |
             Roles: <span sec:authentication="principal.authorities"></span>
+            <div sec:authorize="isAnonymous()">isAnonymous</div>
+            <div sec:authorize="isRememberMe()">isRememberMe</div>
+            <div sec:authorize="isAuthenticated()">isAuthenticated</div>
+            <div sec:authorize="isFullyAuthenticated()">isFullyAuthenticated</div>
             <div>
                 <form action="#" th:action="@{/logout}" method="post">
                     <input type="submit" value="Logout" />

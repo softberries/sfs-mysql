@@ -22,7 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/user/**").hasRole("USER")
             .and()
             .formLogin()
-            .loginPage("/login").failureUrl("/login-error");
+            .loginPage("/login").failureUrl("/login-error")
+            .and()
+            .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400);
     }
 
     @Autowired
