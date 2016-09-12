@@ -4,7 +4,7 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-    /*padding-top: 50px;*/
+
 }
 
 
@@ -74,11 +74,19 @@ body {
 .main {
     padding: 20px;
 }
+a.navbar-text-link {
+    padding-top: 15px;
+}
+
 @media (min-width: 768px) {
     .main {
         padding-right: 40px;
         padding-left: 40px;
         padding-top: 70px;
+    }
+    .navbar-nav > li > a {
+        padding-top: 10px;
+        padding-bottom: 5px;
     }
 }
 .main .page-header {
@@ -103,4 +111,7 @@ body {
 .placeholder img {
     display: inline-block;
     border-radius: 50%;
+}
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 3px;
 }

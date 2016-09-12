@@ -12,12 +12,12 @@ import java.util.Optional;
 import static org.springframework.util.StringUtils.isEmpty;
 
 @Service
-class GravatarService {
+public class GravatarService {
 
     private static final String GRAVATAR_BASE_URL = "https://www.gravatar.com/avatar/";
 
     @Cacheable("gravatarURLs")
-    String getGravatarURL(String email, Optional<Integer> size) {
+    public String getGravatarURL(String email, Optional<Integer> size) {
         Preconditions.checkArgument(!isEmpty(email), "Gravatar url generation error, email cannot be null");
         Preconditions.checkArgument(!(size.isPresent() && size.get() <= 0), "Gravatar url generation error, size cannot be equal or less than 0");
         String hash = md5Hex(email);
