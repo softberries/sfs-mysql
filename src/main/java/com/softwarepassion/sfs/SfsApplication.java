@@ -6,9 +6,9 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
 @EnableCaching
-public class SfsMysqlApplication {
+public class SfsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SfsMysqlApplication.class, args);
+		SpringApplication.run(SfsApplication.class, args);
 	}
 }

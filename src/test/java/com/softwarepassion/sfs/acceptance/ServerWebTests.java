@@ -1,6 +1,6 @@
 package com.softwarepassion.sfs.acceptance;
 
-import com.softwarepassion.sfs.SfsMysqlApplication;
+import com.softwarepassion.sfs.SfsApplication;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SfsMysqlApplication.class)
+@SpringApplicationConfiguration(SfsApplication.class)
 @WebIntegrationTest(randomPort = true)
 public class ServerWebTests {
 

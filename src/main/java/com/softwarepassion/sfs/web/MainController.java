@@ -35,9 +35,10 @@ public class MainController {
 
     @RequestMapping("/user/index")
     public String userIndex(Model model) {
+        log.info("All users: "+ userRepository.count());
         User user = userRepository.findOne(1L);
         log.info("user found: " + user);
-        model.addAttribute("user", user);
+        model.addAttribute("loggedInUser", user);
         return "user/index";
     }
 

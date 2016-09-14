@@ -1,6 +1,6 @@
 package com.softwarepassion.sfs.web;
 
-import com.softwarepassion.sfs.SfsMysqlApplication;
+import com.softwarepassion.sfs.SfsApplication;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(SfsMysqlApplication.class)
+@SpringApplicationConfiguration(SfsApplication.class)
 @WebAppConfiguration
 public class MainControllerTest {
     @Autowired
