@@ -20,6 +20,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" href="/css/dataTables.bootstrap.min.css" th:href="@{/css/dataTables.bootstrap.min.css}"/>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
@@ -33,6 +34,16 @@
     <![endif]-->
     <script th:src='@{/webjars/jquery/3.1.0/jquery.min.js}'></script>
     <script th:src='@{/webjars/bootstrap/3.1.0/js/bootstrap.min.js}'></script>
+    <script th:src='@{/js/jquery.dataTables.min.js}'></script>
+    <script th:src='@{/js/dataTables.bootstrap.min.js}'></script>
+    <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>-->
+<!---->
+    <!--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>-->
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
 </head>
 
 <body>
@@ -91,52 +102,36 @@
             </div>
 
             <h2 class="sub-header">Section title</h2>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th><a class="sorted">ID</a></th>
-                        <th><a class="sorted">First Name</a></th>
-                        <th><a class="sorted">Last Name</a></th>
-                        <th><a class="sorted">Email</a></th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="row : ${page}">
-                        <th th:text="${row.id}">Id</th>
-                        <td th:text="${row.firstName}">Last Name</td>
-                        <td th:text="${row.lastName}">Last Name</td>
-                        <td th:text="${row.email}">Last Name</td>
-                        <td><a href="#">edit</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="row">
-                    <div class="table-pagination">
-                        <ul class="pagination">
-                            <li th:class="${page.number eq 0} ? 'disabled' : ''">
-                                <a th:if="${not page.isFirst()}" th:href="@{${'/user/index'}(page=${page.number-1},size=${page.size})}">Previous</a>
-                                <a th:if="${page.isFirst()}" href="javascript:void(0);">Previous</a>
-                            </li>
+            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
-                            <li th:each="pageNo : ${#numbers.sequence(0, page.totalPages - 1)}" th:class="${page.number eq pageNo}? 'active' : ''">
-                                <a th:if="${page.number  eq pageNo}" href="javascript:void(0);">
-                                    <span th:text="${pageNo + 1}"></span>
-                                </a>
-                                <a th:if="${not (page.number  eq pageNo)}" th:href="@{${'/user/index'}(page=${pageNo},size=${page.size})}">
-                                    <span th:text="${pageNo + 1}"></span>
-                                </a>
-
-                            </li>
-                            <li th:class="${page.number + 1 ge page.totalPages} ? 'disabled' : ''">
-                                <a th:if="${not page.isLast()}" th:href="@{${'/user/index'}(page=${page.number+1},size=${page.size})}">Next</a>
-                                <a th:if="${page.isLast()}" href="javascript:void(0);">Next</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr th:each="row : ${page}">
+                    <td th:text="${row.id}">Id</td>
+                    <td th:text="${row.firstName}">Last Name</td>
+                    <td th:text="${row.lastName}">Last Name</td>
+                    <td th:text="${row.email}">Last Name</td>
+                    <td><a href="#">edit</a></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

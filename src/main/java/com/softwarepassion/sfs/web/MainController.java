@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class MainController {
     }
 
     @RequestMapping("/user/index")
-    public String userIndex(ModelMap model, @SortDefault(value = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String userIndex(ModelMap model, @SortDefault(value = "id", direction = Sort.Direction.DESC) @PageableDefault(size = 1000) Pageable pageable) {
         log.info("Received: " + pageable);
         log.info("All users: " + userRepository.count());
         User user = userRepository.findOne(1L);
