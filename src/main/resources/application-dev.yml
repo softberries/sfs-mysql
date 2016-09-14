@@ -2,7 +2,7 @@ spring:
   thymeleaf:
     cache: false
   datasource:
-    url:  jdbc:h2:file:~/sfsdb
+    url:  jdbc:h2:mem:sfsdb
     driverClassName: org.h2.Driver
     data: classpath:/db/dev-data.sql
     initialize: true

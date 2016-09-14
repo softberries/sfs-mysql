@@ -115,3 +115,7 @@ a.navbar-text-link {
 .navbar-nav>li>.dropdown-menu {
     margin-top: 3px;
 }
+.profile-img>img {
+    max-width: 32px;
+    max-height: 32px;
+}

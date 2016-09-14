@@ -15,13 +15,14 @@ import static org.springframework.util.StringUtils.isEmpty;
 public class GravatarService {
 
     private static final String GRAVATAR_BASE_URL = "https://www.gravatar.com/avatar/";
+    private static final int DEFAULT_IMG_SIZE = 32;
 
     @Cacheable("gravatarURLs")
     public String getGravatarURL(String email, Optional<Integer> size) {
         Preconditions.checkArgument(!isEmpty(email), "Gravatar url generation error, email cannot be null");
         Preconditions.checkArgument(!(size.isPresent() && size.get() <= 0), "Gravatar url generation error, size cannot be equal or less than 0");
         String hash = md5Hex(email);
-        String sizePostfix = size.isPresent() ? "?s=" + size.get() : "";
+        String sizePostfix = size.isPresent() ? "?s=" + size.get() : "?s=" + DEFAULT_IMG_SIZE;
         return GRAVATAR_BASE_URL + hash + sizePostfix;
     }
 

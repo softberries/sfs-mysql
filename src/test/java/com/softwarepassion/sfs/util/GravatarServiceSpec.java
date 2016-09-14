@@ -33,6 +33,15 @@ public class GravatarServiceSpec {
         assert !gravatarURL.isEmpty();
     }
 
+    @Test
+    public void shouldGenerateURLForGivenEmailAndDefaultSize() {
+        //when
+        String gravatarURL = gravatarService.getGravatarURL(EMAIL, Optional.empty());
+        //then
+        assert !gravatarURL.isEmpty();
+        assert gravatarURL.endsWith("32");
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionOnEmptyEmail() {
         //given
