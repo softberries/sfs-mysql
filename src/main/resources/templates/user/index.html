@@ -15,7 +15,8 @@
     <link rel='stylesheet' th:href='@{/webjars/bootstrap/3.1.0/css/bootstrap.min.css}'/>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css" th:href="@{/css/ie10-viewport-bug-workaround.css}"/>
+    <link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"
+          th:href="@{/css/ie10-viewport-bug-workaround.css}"/>
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}"/>
@@ -30,6 +31,8 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script th:src='@{/webjars/jquery/3.1.0/jquery.min.js}'></script>
+    <script th:src='@{/webjars/bootstrap/3.1.0/js/bootstrap.min.js}'></script>
 </head>
 
 <body>
@@ -92,128 +95,47 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
+                        <th><a class="sorted">ID</a></th>
+                        <th><a class="sorted">First Name</a></th>
+                        <th><a class="sorted">Last Name</a></th>
+                        <th><a class="sorted">Email</a></th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    <tr>
-                        <td>1,002</td>
-                        <td>amet</td>
-                        <td>consectetur</td>
-                        <td>adipiscing</td>
-                        <td>elit</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>Integer</td>
-                        <td>nec</td>
-                        <td>odio</td>
-                        <td>Praesent</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>libero</td>
-                        <td>Sed</td>
-                        <td>cursus</td>
-                        <td>ante</td>
-                    </tr>
-                    <tr>
-                        <td>1,004</td>
-                        <td>dapibus</td>
-                        <td>diam</td>
-                        <td>Sed</td>
-                        <td>nisi</td>
-                    </tr>
-                    <tr>
-                        <td>1,005</td>
-                        <td>Nulla</td>
-                        <td>quis</td>
-                        <td>sem</td>
-                        <td>at</td>
-                    </tr>
-                    <tr>
-                        <td>1,006</td>
-                        <td>nibh</td>
-                        <td>elementum</td>
-                        <td>imperdiet</td>
-                        <td>Duis</td>
-                    </tr>
-                    <tr>
-                        <td>1,007</td>
-                        <td>sagittis</td>
-                        <td>ipsum</td>
-                        <td>Praesent</td>
-                        <td>mauris</td>
-                    </tr>
-                    <tr>
-                        <td>1,008</td>
-                        <td>Fusce</td>
-                        <td>nec</td>
-                        <td>tellus</td>
-                        <td>sed</td>
-                    </tr>
-                    <tr>
-                        <td>1,009</td>
-                        <td>augue</td>
-                        <td>semper</td>
-                        <td>porta</td>
-                        <td>Mauris</td>
-                    </tr>
-                    <tr>
-                        <td>1,010</td>
-                        <td>massa</td>
-                        <td>Vestibulum</td>
-                        <td>lacinia</td>
-                        <td>arcu</td>
-                    </tr>
-                    <tr>
-                        <td>1,011</td>
-                        <td>eget</td>
-                        <td>nulla</td>
-                        <td>Class</td>
-                        <td>aptent</td>
-                    </tr>
-                    <tr>
-                        <td>1,012</td>
-                        <td>taciti</td>
-                        <td>sociosqu</td>
-                        <td>ad</td>
-                        <td>litora</td>
-                    </tr>
-                    <tr>
-                        <td>1,013</td>
-                        <td>torquent</td>
-                        <td>per</td>
-                        <td>conubia</td>
-                        <td>nostra</td>
-                    </tr>
-                    <tr>
-                        <td>1,014</td>
-                        <td>per</td>
-                        <td>inceptos</td>
-                        <td>himenaeos</td>
-                        <td>Curabitur</td>
-                    </tr>
-                    <tr>
-                        <td>1,015</td>
-                        <td>sodales</td>
-                        <td>ligula</td>
-                        <td>in</td>
-                        <td>libero</td>
+                    <tr th:each="row : ${page}">
+                        <th th:text="${row.id}">Id</th>
+                        <td th:text="${row.firstName}">Last Name</td>
+                        <td th:text="${row.lastName}">Last Name</td>
+                        <td th:text="${row.email}">Last Name</td>
+                        <td><a href="#">edit</a></td>
                     </tr>
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="table-pagination">
+                        <ul class="pagination">
+                            <li th:class="${page.number eq 0} ? 'disabled' : ''">
+                                <a th:if="${not page.isFirst()}" th:href="@{${'/user/index'}(page=${page.number-1},size=${page.size})}">Previous</a>
+                                <a th:if="${page.isFirst()}" href="javascript:void(0);">Previous</a>
+                            </li>
+
+                            <li th:each="pageNo : ${#numbers.sequence(0, page.totalPages - 1)}" th:class="${page.number eq pageNo}? 'active' : ''">
+                                <a th:if="${page.number  eq pageNo}" href="javascript:void(0);">
+                                    <span th:text="${pageNo + 1}"></span>
+                                </a>
+                                <a th:if="${not (page.number  eq pageNo)}" th:href="@{${'/user/index'}(page=${pageNo},size=${page.size})}">
+                                    <span th:text="${pageNo + 1}"></span>
+                                </a>
+
+                            </li>
+                            <li th:class="${page.number + 1 ge page.totalPages} ? 'disabled' : ''">
+                                <a th:if="${not page.isLast()}" th:href="@{${'/user/index'}(page=${page.number+1},size=${page.size})}">Next</a>
+                                <a th:if="${page.isLast()}" href="javascript:void(0);">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -222,8 +144,6 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script th:src='@{/webjars/jquery/3.1.0/jquery.min.js}'></script>
-<script th:src='@{/webjars/bootstrap/3.1.0/js/bootstrap.min.js}'></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <script th:src='@{/webjars/holderjs/2.5.2/holder.min.js}'></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

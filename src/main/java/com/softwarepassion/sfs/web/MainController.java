@@ -5,8 +5,12 @@ import com.softwarepassion.sfs.repository.UserRepository;
 import com.softwarepassion.sfs.util.GravatarService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -34,11 +38,13 @@ public class MainController {
     }
 
     @RequestMapping("/user/index")
-    public String userIndex(Model model) {
-        log.info("All users: "+ userRepository.count());
+    public String userIndex(ModelMap model, @SortDefault(value = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        log.info("Received: " + pageable);
+        log.info("All users: " + userRepository.count());
         User user = userRepository.findOne(1L);
         log.info("user found: " + user);
         model.addAttribute("loggedInUser", user);
+        model.addAttribute("page", userRepository.findAll(pageable));
         return "user/index";
     }
 
