@@ -1,0 +1,8 @@
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    url:  jdbc:h2:file:~/sfsdb
+    driverClassName: org.h2.Driver
+    data: classpath:/db/dev-data.sql
+    initialize: true

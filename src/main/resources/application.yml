@@ -1,3 +1,7 @@
+spring:
+  profiles:
+    active: dev
+
 server:
   port: 8080
 
@@ -5,7 +9,3 @@ logging:
   level:
     root: WARN
     org.springframework.web: INFO
-
-spring:
-  thymeleaf:
-    cache: false

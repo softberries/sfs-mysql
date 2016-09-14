@@ -1,0 +1,1 @@
+insert into USER (EMAIL, FIRST_NAME, LAST_NAME, PROFILE_IMAGE_URL) values ('kris.grajek@gmail.com', 'Kris', 'Grajek ', 'http://gravatar.com/avatar/0bc83cb571cd1c50ba6f3e8a78ef1346');

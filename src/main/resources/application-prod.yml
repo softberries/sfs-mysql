@@ -1,0 +1,9 @@
+spring:
+  thymeleaf:
+    cache: true
+  datasource:
+    url:  jdbc:mysql://localhost/sfsdb
+    driverClassName: com.mysql.jdbc.Driver
+    username: dbuser
+    password: dbpass
+    initialize: false

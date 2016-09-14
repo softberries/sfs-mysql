@@ -22,7 +22,6 @@ public class GravatarService {
         Preconditions.checkArgument(!(size.isPresent() && size.get() <= 0), "Gravatar url generation error, size cannot be equal or less than 0");
         String hash = md5Hex(email);
         String sizePostfix = size.isPresent() ? "?s=" + size.get() : "";
-        System.out.println("returning " + GRAVATAR_BASE_URL + hash + sizePostfix);
         return GRAVATAR_BASE_URL + hash + sizePostfix;
     }
 
