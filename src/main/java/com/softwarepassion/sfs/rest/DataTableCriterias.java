@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class DataTableCriterias {
+class DataTableCriterias {
     private int draw;
     private int start;
     private int length;

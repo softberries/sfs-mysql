@@ -39,22 +39,31 @@
     <script type="text/javascript">
         //<![CDATA[
         $(document).ready(function () {
-            $('#example').DataTable({
+            var table = $('#example').DataTable({
                 serverSide: true,
                 processing: true,
                 ajax: {
                     "url": "/api/users",
-                    "data": function(data) {
+                    "data": function (data) {
                         planify(data);
                     }
                 },
                 "columns": [
-                    { "data": "id" },
-                    { "data": "firstName" },
-                    { "data": "lastName" },
-                    { "data": "email" },
-                    { "data": null }
-                ]
+                    {"data": "id"},
+                    {"data": "firstName"},
+                    {"data": "lastName"},
+                    {"data": "email"},
+                    {"data": null, "orderable": false}
+                ],
+                "columnDefs": [{
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button>View</button>"
+                }]
+            });
+            $('#example tbody').on('click', 'button', function () {
+                var data = table.row($(this).parents('tr')).data();
+                alert("clicked " + JSON.stringify(data, null, 4));
             });
             function planify(data) {
                 for (var i = 0; i < data.columns.length; i++) {

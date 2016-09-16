@@ -5,12 +5,29 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import static org.hibernate.internal.util.StringHelper.isNotEmpty;
+
 @Service
-public class PageFactory {
+class PageFactory {
 
     Pageable getPageableFromCriterias(DataTableCriterias criterias) {
-        //todo: build sorting
-        Sort sort = new Sort(Sort.Direction.ASC, "id");
-        return new PageRequest(criterias.getDraw(), criterias.getLength(), sort);
+        String sortColumnNumber = criterias.getOrder().get(0).get(DataTableCriterias.OrderCriterias.column);
+        String sortColumnDirection = criterias.getOrder().get(0).get(DataTableCriterias.OrderCriterias.dir);
+        String sortColumnName = criterias.getColumns().get(Integer.parseInt(sortColumnNumber)).get(DataTableCriterias.ColumnCriterias.data);
+        int pageNumber = calculatePageNumber(criterias);
+        if (isNotEmpty(sortColumnName) && isNotEmpty(sortColumnDirection)) {
+            Sort sort = new Sort(new Sort.Order("asc".equals(sortColumnDirection) ? Sort.Direction.ASC : Sort.Direction.DESC, sortColumnName));
+            return new PageRequest(pageNumber, criterias.getLength(), sort);
+        } else {
+            return new PageRequest(pageNumber, criterias.getLength());
+        }
+    }
+
+    private int calculatePageNumber(DataTableCriterias criterias) {
+        if (criterias.getStart() == 0) {
+            return 0;
+        } else {
+            return criterias.getStart() / criterias.getLength();
+        }
     }
 }
