@@ -2,7 +2,7 @@ package com.softwarepassion.sfs.rest;
 
 
 import com.softwarepassion.sfs.model.User;
-import com.softwarepassion.sfs.repository.UserRepository;
+import com.softwarepassion.sfs.repository.service.UserRepositoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UserResource {
 
-    private final UserRepository userRepository;
+    private final UserRepositoryService userRepositoryService;
     private final PageFactory pageFactory;
 
     @Autowired
-    public UserResource(UserRepository userRepository, PageFactory pageFactory) {
-        this.userRepository = userRepository;
+    public UserResource(UserRepositoryService userRepositoryService, PageFactory pageFactory) {
+        this.userRepositoryService = userRepositoryService;
         this.pageFactory = pageFactory;
     }
 
@@ -31,13 +31,12 @@ public class UserResource {
     DataTableWrapper<User> readBookmarks(@ModelAttribute DataTableCriterias criterias) {
         log.info("Criterias: " + criterias);
         Pageable pageable = pageFactory.getPageableFromCriterias(criterias);
-        //todo: build searching
-        Page<User> page = userRepository.findAll(pageable);
-        long recordsFiltered = 1000; //after searching
+        Page<User> page = userRepositoryService.searchByMultipleColumns(criterias.getSearch().get(DataTableCriterias.SearchCriterias.value), pageable);
+        log.info("Page: " + page);
         return new DataTableWrapper<User>(
             page.getContent(),
             criterias.getDraw(),
-            userRepository.count(),
-            recordsFiltered);
+            userRepositoryService.count(),
+            page.getTotalElements());
     }
 }

@@ -19,12 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class MainController {
 
-    private final GravatarService gravatarService;
     private final UserRepository userRepository;
 
     @Autowired
-    public MainController(GravatarService gravatarService, UserRepository userRepository) {
-        this.gravatarService = gravatarService;
+    public MainController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -45,7 +43,6 @@ public class MainController {
         User user = userRepository.findOne(1L);
         log.info("user found: " + user);
         model.addAttribute("loggedInUser", user);
-        model.addAttribute("page", userRepository.findAll(pageable));
         return "user/index";
     }
 

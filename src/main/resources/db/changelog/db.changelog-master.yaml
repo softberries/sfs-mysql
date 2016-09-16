@@ -29,7 +29,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: profileImageUrl
+                  name: profile_image_url
                   type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: search_string
+                  type: varchar(1000)
                   constraints:
                     nullable: false
