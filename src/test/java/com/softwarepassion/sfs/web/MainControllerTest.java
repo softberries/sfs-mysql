@@ -57,7 +57,7 @@ public class MainControllerTest {
 
     @Test
     public void loginUser() throws Exception {
-        this.mockMvc.perform(formLogin().user("user").password("password"))
+        this.mockMvc.perform(formLogin().user("user@gmail.com").password("password"))
             .andExpect(authenticated());
     }
 
@@ -70,7 +70,7 @@ public class MainControllerTest {
 
     @Test
     public void loginUserAccessProtected() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(formLogin().user("user").password("password"))
+        MvcResult mvcResult = this.mockMvc.perform(formLogin().user("user@gmail.com").password("password"))
             .andExpect(authenticated())
             .andReturn();
 
@@ -83,7 +83,7 @@ public class MainControllerTest {
 
     @Test
     public void loginUserValidateLogout() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(formLogin().user("user").password("password"))
+        MvcResult mvcResult = this.mockMvc.perform(formLogin().user("user@gmail.com").password("password"))
             .andExpect(authenticated())
             .andReturn();
 
