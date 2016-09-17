@@ -50,3 +50,17 @@ dependencies {
     testCompile('org.springframework.security:spring-security-test')
     testCompile("org.seleniumhq.selenium:selenium-java:2.53.1")
 }
+
+sourceSets {
+    acceptanceTest {
+        java.srcDir file('src/acceptanceTest/java')
+        resources.srcDir file('src/acceptanceTest/resources')
+        compileClasspath += sourceSets.test.compileClasspath
+        runtimeClasspath += sourceSets.test.runtimeClasspath
+    }
+}
+
+task acceptanceTest(type: Test) {
+    testClassesDir = sourceSets.acceptanceTest.output.classesDir
+    classpath += sourceSets.acceptanceTest.runtimeClasspath
+}
