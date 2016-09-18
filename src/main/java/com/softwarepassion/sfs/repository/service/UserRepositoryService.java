@@ -21,10 +21,10 @@ public class UserRepositoryService {
         this.userRepository = userRepository;
     }
 
-    public Page<User> searchByMultipleColumns(String value, Pageable pageable) {
+    public Page<User> searchByMultipleColumns(String searchTerm, Pageable pageable) {
         ExampleMatcher matcher = ExampleMatcher.matching().
             withMatcher("searchString", ExampleMatcher.GenericPropertyMatcher.of(ExampleMatcher.StringMatcher.CONTAINING).ignoreCase());
-        Example<User> example = Example.of(new User(value), matcher);
+        Example<User> example = Example.of(new User(searchTerm), matcher);
         return userRepository.findAll(example, pageable);
     }
 
