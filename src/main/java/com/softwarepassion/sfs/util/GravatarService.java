@@ -1,6 +1,7 @@
 package com.softwarepassion.sfs.util;
 
 import com.google.common.base.Preconditions;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 import static org.springframework.util.StringUtils.isEmpty;
 
 @Service
+@Slf4j
 public class GravatarService {
 
     private static final String GRAVATAR_BASE_URL = "https://www.gravatar.com/avatar/";
@@ -28,10 +30,10 @@ public class GravatarService {
 
     private static String md5Hex(String message) {
         try {
-            MessageDigest md =
-                MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance("MD5");
             return hex(md.digest(message.getBytes("CP1252")));
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ignored) {
+            log.error("Error while generating md5Hex code", ignored);
         }
         return null;
     }
@@ -40,7 +42,7 @@ public class GravatarService {
         StringBuilder sb = new StringBuilder();
         for (byte anArray : array) {
             sb.append(Integer.toHexString((anArray
-                & 0xFF) | 0x100).substring(1, 3));
+                    & 0xFF) | 0x100).substring(1, 3));
         }
         return sb.toString();
     }

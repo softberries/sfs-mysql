@@ -21,6 +21,8 @@ import java.util.Arrays;
 @AllArgsConstructor
 public class User implements Serializable {
 
+    private static final String STRING_DELIMITER = " ";
+
     @Id
     @GeneratedValue
     private Long id;
@@ -48,18 +50,18 @@ public class User implements Serializable {
     }
 
     public String getFullName() {
-        return firstName + " " + lastName;
+        return StringUtils.join(Arrays.asList(firstName, lastName), STRING_DELIMITER);
     }
 
     @PreUpdate
     @PrePersist
     void updateSearchString() {
         final String fullSearchString = StringUtils.join(Arrays.asList(
-            id,
-            firstName,
-            lastName,
-            email),
-            " ");
+                id,
+                firstName,
+                lastName,
+                email),
+                STRING_DELIMITER);
         this.searchString = StringUtils.substring(fullSearchString, 0, 999);
     }
 

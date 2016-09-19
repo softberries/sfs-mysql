@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class UserRepositoryServiceTest {
 
-    private static int TOTAL_ELEMENTS = 1000;
+    private static final int TOTAL_ELEMENTS = 1000;
 
     @Autowired
     private UserRepositoryService userRepositoryService;

@@ -12,10 +12,10 @@ import java.util.Optional;
 @SpringBootTest
 public class GravatarServiceSpec {
 
+    private static final String EMAIL = "krzysztof.grajek@googlemail.com";
+
     @Autowired
     private GravatarService gravatarService;
-
-    private static final String EMAIL = "krzysztof.grajek@googlemail.com";
 
     @Test
     public void shouldGenerateURLForGivenEmail() {

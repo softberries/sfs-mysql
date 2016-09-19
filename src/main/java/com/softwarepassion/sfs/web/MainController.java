@@ -2,7 +2,6 @@ package com.softwarepassion.sfs.web;
 
 import com.softwarepassion.sfs.model.User;
 import com.softwarepassion.sfs.repository.UserRepository;
-import com.softwarepassion.sfs.util.GravatarService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +36,9 @@ public class MainController {
     }
 
     @RequestMapping("/user/index")
-    public String userIndex(ModelMap model, @SortDefault(value = "id", direction = Sort.Direction.DESC) @PageableDefault(size = 1000) Pageable pageable) {
+    public String userIndex(ModelMap model,
+                            @SortDefault(value = "id", direction = Sort.Direction.DESC)
+                            @PageableDefault(size = 1000) Pageable pageable) {
         log.info("Received: " + pageable);
         log.info("All users: " + userRepository.count());
         User user = userRepository.findOne(1L);

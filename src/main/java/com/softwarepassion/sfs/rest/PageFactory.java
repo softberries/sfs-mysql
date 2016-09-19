@@ -8,17 +8,22 @@ import org.springframework.stereotype.Service;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 
 @Service
-class PageFactory {
+public class PageFactory {
 
     private static final String ASC_SORT_DIRECTION = "asc";
 
-    Pageable getPageableFromCriterias(DataTableCriterias criterias) {
+    public Pageable getPageableFromCriterias(DataTableCriterias criterias) {
         String sortColumnNumber = criterias.getOrder().get(0).get(DataTableCriterias.OrderCriterias.column);
         String sortColumnDirection = criterias.getOrder().get(0).get(DataTableCriterias.OrderCriterias.dir);
-        String sortColumnName = criterias.getColumns().get(Integer.parseInt(sortColumnNumber)).get(DataTableCriterias.ColumnCriterias.data);
+        String sortColumnName = criterias
+                .getColumns()
+                .get(Integer.parseInt(sortColumnNumber))
+                .get(DataTableCriterias.ColumnCriterias.data);
         int pageNumber = calculatePageNumber(criterias);
         if (isNotEmpty(sortColumnName) && isNotEmpty(sortColumnDirection)) {
-            Sort sort = new Sort(new Sort.Order(ASC_SORT_DIRECTION.equals(sortColumnDirection) ? Sort.Direction.ASC : Sort.Direction.DESC, sortColumnName));
+            Sort sort = new Sort(
+                    new Sort.Order(ASC_SORT_DIRECTION.equals(sortColumnDirection) ? Sort.Direction.ASC : Sort.Direction.DESC, sortColumnName)
+            );
             return new PageRequest(pageNumber, criterias.getLength(), sort);
         } else {
             return new PageRequest(pageNumber, criterias.getLength());

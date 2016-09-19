@@ -12,25 +12,27 @@ import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String USER_ROLE = "USER";
     private SpringSecurityDialect springSecurityDialect;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
-            .antMatchers("/css/**", "/js/**", "/webjars/**", "/fragments/**", "/images/**", "/index").permitAll()
-            .antMatchers("/user/**").hasRole("USER")
-            .and()
-            .formLogin()
-            .loginPage("/login").failureUrl("/login-error")
-            .and()
-            .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400);
+                .authorizeRequests()
+                .antMatchers("/css/**", "/js/**", "/webjars/**", "/fragments/**", "/images/**", "/index").permitAll()
+                .antMatchers("/user/**").hasRole("USER")
+                .and()
+                .formLogin()
+                .loginPage("/login").failureUrl("/login-error")
+                .and()
+                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400);
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-            .withUser("user@gmail.com").password("password").roles("USER");
+        auth.inMemoryAuthentication()
+                .withUser("user@gmail.com")
+                .password("password")
+                .roles(USER_ROLE);
     }
 }

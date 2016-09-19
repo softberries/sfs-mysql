@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class SfsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SfsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SfsApplication.class, args);
+    }
 }

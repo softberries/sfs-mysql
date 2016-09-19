@@ -36,9 +36,9 @@ public class MainControllerTest {
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders
-            .webAppContextSetup(context)
-            .apply(springSecurity())
-            .build();
+                .webAppContextSetup(context)
+                .apply(springSecurity())
+                .build();
     }
 
     @Test
@@ -49,8 +49,8 @@ public class MainControllerTest {
     @Test
     public void accessProtectedRedirectsToLogin() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/user/index"))
-            .andExpect(status().is3xxRedirection())
-            .andReturn();
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
 
         assertThat(mvcResult.getResponse().getRedirectedUrl()).endsWith("/login");
     }
@@ -58,44 +58,44 @@ public class MainControllerTest {
     @Test
     public void loginUser() throws Exception {
         this.mockMvc.perform(formLogin().user("user@gmail.com").password("password"))
-            .andExpect(authenticated());
+                .andExpect(authenticated());
     }
 
     @Test
     public void loginInvalidUser() throws Exception {
         this.mockMvc.perform(formLogin().user("invalid").password("invalid"))
-            .andExpect(unauthenticated())
-            .andExpect(status().is3xxRedirection());
+                .andExpect(unauthenticated())
+                .andExpect(status().is3xxRedirection());
     }
 
     @Test
     public void loginUserAccessProtected() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(formLogin().user("user@gmail.com").password("password"))
-            .andExpect(authenticated())
-            .andReturn();
+                .andExpect(authenticated())
+                .andReturn();
 
         MockHttpSession httpSession = MockHttpSession.class.cast(mvcResult.getRequest().getSession(false));
 
         this.mockMvc.perform(get("/user/index")
-            .session(httpSession))
-            .andExpect(status().isOk());
+                .session(httpSession))
+                .andExpect(status().isOk());
     }
 
     @Test
     public void loginUserValidateLogout() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(formLogin().user("user@gmail.com").password("password"))
-            .andExpect(authenticated())
-            .andReturn();
+                .andExpect(authenticated())
+                .andReturn();
 
         MockHttpSession httpSession = MockHttpSession.class.cast(mvcResult.getRequest().getSession(false));
 
         this.mockMvc.perform(post("/logout").with(csrf())
-            .session(httpSession))
-            .andExpect(unauthenticated());
+                .session(httpSession))
+                .andExpect(unauthenticated());
 
         this.mockMvc.perform(get("/user/index")
-            .session(httpSession))
-            .andExpect(unauthenticated())
-            .andExpect(status().is3xxRedirection());
+                .session(httpSession))
+                .andExpect(unauthenticated())
+                .andExpect(status().is3xxRedirection());
     }
 }

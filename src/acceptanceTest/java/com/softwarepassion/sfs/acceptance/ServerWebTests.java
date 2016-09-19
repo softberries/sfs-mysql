@@ -1,6 +1,7 @@
 package com.softwarepassion.sfs.acceptance;
 
 import com.softwarepassion.sfs.SfsApplication;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(SfsApplication.class)
 @WebIntegrationTest(randomPort = true)
+@Slf4j
 public class ServerWebTests {
 
     private static FirefoxDriver browser;
@@ -36,6 +38,6 @@ public class ServerWebTests {
 
     @Test
     public void simpleTest() {
-        System.out.println("asdf");
+        log.info("simple test execution");
     }
 }

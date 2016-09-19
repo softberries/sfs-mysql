@@ -29,14 +29,14 @@ public class UserResource {
 
     @RequestMapping(method = RequestMethod.GET)
     DataTableWrapper<User> readBookmarks(@ModelAttribute DataTableCriterias criterias) {
-        log.info("Criterias: " + criterias);
         Pageable pageable = pageFactory.getPageableFromCriterias(criterias);
-        Page<User> page = userRepositoryService.searchByMultipleColumns(criterias.getSearch().get(DataTableCriterias.SearchCriterias.value), pageable);
-        log.info("Page: " + page);
+        Page<User> page = userRepositoryService.searchByMultipleColumns(
+                criterias.getSearch().get(DataTableCriterias.SearchCriterias.value),
+                pageable);
         return new DataTableWrapper<User>(
-            page.getContent(),
-            criterias.getDraw(),
-            userRepositoryService.count(),
-            page.getTotalElements());
+                page.getContent(),
+                criterias.getDraw(),
+                userRepositoryService.count(),
+                page.getTotalElements());
     }
 }
