@@ -35,6 +35,11 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/register")
+    public String register() {
+        return "register";
+    }
+
     @RequestMapping("/user/index")
     public String userIndex(ModelMap model,
                             @SortDefault(value = "id", direction = Sort.Direction.DESC)
