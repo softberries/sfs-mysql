@@ -35,19 +35,11 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/register")
-    public String register() {
-        return "register";
-    }
-
     @RequestMapping("/user/index")
     public String userIndex(ModelMap model,
                             @SortDefault(value = "id", direction = Sort.Direction.DESC)
                             @PageableDefault(size = 1000) Pageable pageable) {
-        log.info("Received: " + pageable);
-        log.info("All users: " + userRepository.count());
         User user = userRepository.findOne(1L);
-        log.info("user found: " + user);
         model.addAttribute("loggedInUser", user);
         return "user/index";
     }
