@@ -15,12 +15,12 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserRepositoryServiceTest {
+public class UserServiceTest {
 
     private static final int TOTAL_ELEMENTS = 1000;
 
     @Autowired
-    private UserRepositoryService userRepositoryService;
+    private UserService userService;
 
     @Test
     public void shouldFindAllRecords() {
@@ -28,7 +28,7 @@ public class UserRepositoryServiceTest {
         String searchTerm = null;
         Pageable pageable = null;
         //when
-        Page<User> users = userRepositoryService.searchByMultipleColumns(searchTerm, pageable);
+        Page<User> users = userService.searchByMultipleColumns(searchTerm, pageable);
         //then
         assertTrue(users.getNumberOfElements() == TOTAL_ELEMENTS);
         assertTrue(users.getTotalElements() == TOTAL_ELEMENTS);
@@ -41,7 +41,7 @@ public class UserRepositoryServiceTest {
         String searchTerm = null;
         Pageable pageable = new PageRequest(0, 100);
         //when
-        Page<User> users = userRepositoryService.searchByMultipleColumns(searchTerm, pageable);
+        Page<User> users = userService.searchByMultipleColumns(searchTerm, pageable);
         //then
         assertTrue(users.getNumberOfElements() == 100);
         assertTrue(users.getTotalElements() == TOTAL_ELEMENTS);
@@ -54,7 +54,7 @@ public class UserRepositoryServiceTest {
         String searchTerm = "kjames0@mayoclinic.com";
         Pageable pageable = new PageRequest(0, 100);
         //when
-        Page<User> users = userRepositoryService.searchByMultipleColumns(searchTerm, pageable);
+        Page<User> users = userService.searchByMultipleColumns(searchTerm, pageable);
         //then
         assertTrue(users.getNumberOfElements() == 1);
         assertTrue(users.getTotalElements() == 1);

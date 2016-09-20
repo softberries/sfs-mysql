@@ -1,7 +1,9 @@
 package com.softwarepassion.sfs.web;
 
 import com.softwarepassion.sfs.forms.RegistrationForm;
+import com.softwarepassion.sfs.repository.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,14 @@ import javax.validation.Valid;
 @Slf4j
 public class RegistrationController {
 
+    private final UserService userService;
+
+    @Autowired
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
+
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
         RegistrationForm registration = new RegistrationForm();
@@ -25,13 +35,15 @@ public class RegistrationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView register(@Valid RegistrationForm registrationForm, BindingResult result, Errors errors) {
-        log.info("Registration form received: " + registrationForm);
-        log.info("Registration errors received: " + errors);
-        log.info("Registration br received: " + result);
+        if (userService.isEmailDuplicated(registrationForm.getEmail())) {
+            result.rejectValue("email", "message.registrationError");
+        }
         if (result.hasErrors()) {
             return new ModelAndView("register", "registrationForm", registrationForm);
+        } else {
+            userService.register(registrationForm);
         }
-        return new ModelAndView("index");
+        return new ModelAndView("redirect:/login");
     }
 
 }
