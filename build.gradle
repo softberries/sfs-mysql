@@ -43,6 +43,7 @@ dependencies {
     compile('org.webjars:holderjs:2.5.2')
     compile('org.webjars:jquery:3.1.0')
     compile('org.projectlombok:lombok:1.16.10')
+    compile('org.mvel:mvel2:2.1.6.Final')
     runtime('com.h2database:h2')
     runtime('mysql:mysql-connector-java')
     runtime('org.liquibase:liquibase-core:3.5.1')

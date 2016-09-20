@@ -1,5 +1,6 @@
-package com.softwarepassion.sfs.model.forms;
+package com.softwarepassion.sfs.forms;
 
+import com.softwarepassion.sfs.forms.validation.PasswordMatches;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
+@PasswordMatches(field = "password", verifyField = "passwordConfirm")
 public class RegistrationForm {
 
     @NotNull
@@ -27,5 +29,8 @@ public class RegistrationForm {
     @NotNull
     @NotEmpty
     private String password;
+
+    @NotNull
+    @NotEmpty
     private String passwordConfirm;
 }
