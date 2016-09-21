@@ -29,6 +29,19 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: password
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: secret
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+              - column:
                   name: profile_image_url
                   type: varchar(500)
                   constraints:
@@ -38,3 +51,85 @@ databaseChangeLog:
                   type: varchar(1000)
                   constraints:
                     nullable: false
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: privilege
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: int
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_user_role_user
+            baseTableName:  user_role
+            baseColumnNames:  user_id
+            referencedTableName:  user
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_user_role_role
+            baseTableName:  user_role
+            baseColumnNames:  role_id
+            referencedTableName:  role
+            referencedColumnNames: id
+
+        - createTable:
+            tableName: role_privilege
+            columns:
+              - column:
+                  name: role_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: privilege_id
+                  type: int
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_role_privilege_role
+            baseTableName:  role_privilege
+            baseColumnNames:  role_id
+            referencedTableName:  role
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            constraintName: fk_role_privilege_privilege
+            baseTableName:  role_privilege
+            baseColumnNames:  privilege_id
+            referencedTableName:  privilege
+            referencedColumnNames: id

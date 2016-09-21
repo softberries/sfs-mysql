@@ -2,22 +2,27 @@ package com.softwarepassion.sfs.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.UUID;
 
 @Entity
 @Data
-@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class User implements Serializable {
 
@@ -42,10 +47,30 @@ public class User implements Serializable {
     @Column(length = 1000)
     private String searchString;
 
+    @Column(length = 60)
+    private String password;
+
+    private String secret;
+
+    private boolean enabled;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
+
     @Transient
     private String fullName;
 
+    public User() {
+        this.secret = UUID.randomUUID().toString();
+        this.enabled = false;
+    }
+
     public User(String searchString) {
+        this.secret = UUID.randomUUID().toString();
+        this.enabled = false;
         this.searchString = searchString;
     }
 
