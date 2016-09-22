@@ -1,8 +1,8 @@
 --
 -- generate your data with https://www.mockaroo.com/
 --
-INSERT INTO ROLE (id, name) VALUES (1, 'USER');
-INSERT INTO PRIVILEGE (id, name) VALUES (1, 'USER');
+INSERT INTO ROLE (id, name) VALUES (1, 'ROLE_USER');
+INSERT INTO PRIVILEGE (id, name) VALUES (1, 'ROLE_USER');
 INSERT INTO ROLE_PRIVILEGE (role_id, privilege_id) VALUES (1, 1);
 INSERT INTO USER (id, first_name, last_name, email, profile_image_url, search_string, password, secret, enabled) VALUES
   (1, 'Kathleen', 'James', 'kgrajek@gmail.com', 'http://dummyimage.com/32x32.png/cc0000/ffffff',

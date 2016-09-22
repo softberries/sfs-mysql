@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -36,7 +37,7 @@ public class UserService implements UserDetailsService {
 
     public Page<User> searchByMultipleColumns(String searchTerm, Pageable pageable) {
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withIgnorePaths("password", "secret", "enabled")
+                .withIgnorePaths("password", "secret", "enabled", "roles")
                 .withMatcher("searchString", ExampleMatcher.GenericPropertyMatcher.of(ExampleMatcher.StringMatcher.CONTAINING).ignoreCase());
         Example<User> example = Example.of(new User(searchTerm), matcher);
         return userRepository.findAll(example, pageable);
@@ -69,7 +70,7 @@ public class UserService implements UserDetailsService {
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(final Collection<Role> roles) {
-//        List<GrantedAuthority> gas = roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+//        List<GrantedAuthority> gas = roles.stream().map(r -> new SimpleGrantedAuthority("ROLE_" + r.getName())).collect(Collectors.toList());
 //        return gas;
         return getGrantedAuthorities(getPrivileges(roles));
     }

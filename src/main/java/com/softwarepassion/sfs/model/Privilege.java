@@ -8,12 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Privilege {
+public class Privilege implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

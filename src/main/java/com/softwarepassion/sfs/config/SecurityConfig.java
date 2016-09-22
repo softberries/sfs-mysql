@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/webjars/**", "/fragments/**", "/images/**", "/index", "/register").permitAll()
-                .antMatchers("/user/**").hasRole(USER_ROLE)
+                .antMatchers("/user/**").hasAnyRole(USER_ROLE)
                 .and()
                 .formLogin()
                 .loginPage("/login").failureUrl("/login-error")
@@ -39,10 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("user@gmail.com")
-//                .password("password")
-//                .roles(USER_ROLE);
         auth.authenticationProvider(authProvider());
     }
 

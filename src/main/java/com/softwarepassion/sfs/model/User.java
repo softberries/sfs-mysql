@@ -1,5 +1,6 @@
 package com.softwarepassion.sfs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -24,6 +25,7 @@ import java.util.UUID;
 @Entity
 @Data
 @AllArgsConstructor
+@JsonIgnoreProperties({"password", "secret", "searchString", "roles"})
 public class User implements Serializable {
 
     private static final String STRING_DELIMITER = " ";
