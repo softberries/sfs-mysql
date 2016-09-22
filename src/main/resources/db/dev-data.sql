@@ -1,9 +1,16 @@
 --
 -- generate your data with https://www.mockaroo.com/
 --
+INSERT INTO ROLE (id, name) VALUES (1, 'USER');
+INSERT INTO PRIVILEGE (id, name) VALUES (1, 'USER');
+INSERT INTO ROLE_PRIVILEGE (role_id, privilege_id) VALUES (1, 1);
 INSERT INTO USER (id, first_name, last_name, email, profile_image_url, search_string, password, secret, enabled) VALUES
-  (1, 'Kathleen', 'James', 'kjames0@mayoclinic.com', 'http://dummyimage.com/32x32.png/cc0000/ffffff',
-   '1 Kathleen James kjames0@mayoclinic.com', 'password', 'secret', true);
+  (1, 'Kathleen', 'James', 'kgrajek@gmail.com', 'http://dummyimage.com/32x32.png/cc0000/ffffff',
+   '1 Kathleen James kgrajek@gmail.com', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', 'secret', true);
+INSERT INTO USER_ROLE (user_id, role_id) VALUES (1, 1);
+
+
+
 INSERT INTO USER (id, first_name, last_name, email, profile_image_url, search_string, password, secret, enabled) VALUES
   (2, 'Beverly', 'Cruz', 'bcruz1@spotify.com', 'http://dummyimage.com/32x32.png/5fa2dd/ffffff',
    '2 Beverly Cruz bcruz1@spotify.com', 'password', 'secret', true);
