@@ -20,7 +20,6 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -52,8 +51,6 @@ public class User implements Serializable {
     @Column(length = 60)
     private String password;
 
-    private String secret;
-
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -66,12 +63,10 @@ public class User implements Serializable {
     private String fullName;
 
     public User() {
-        this.secret = UUID.randomUUID().toString();
         this.enabled = false;
     }
 
     public User(String searchString) {
-        this.secret = UUID.randomUUID().toString();
         this.enabled = false;
         this.searchString = searchString;
     }

@@ -28,6 +28,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(SfsApplication.class)
 @WebAppConfiguration
 public class MainControllerTest {
+
+    private static final String USER = "kgrajek@gmail.com";
+    private static final String PASS = "123456";
     @Autowired
     private WebApplicationContext context;
 
@@ -57,7 +60,7 @@ public class MainControllerTest {
 
     @Test
     public void loginUser() throws Exception {
-        this.mockMvc.perform(formLogin().user("user@gmail.com").password("password"))
+        this.mockMvc.perform(formLogin().user(USER).password(PASS))
                 .andExpect(authenticated());
     }
 
@@ -70,7 +73,7 @@ public class MainControllerTest {
 
     @Test
     public void loginUserAccessProtected() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(formLogin().user("user@gmail.com").password("password"))
+        MvcResult mvcResult = this.mockMvc.perform(formLogin().user(USER).password(PASS))
                 .andExpect(authenticated())
                 .andReturn();
 
@@ -83,7 +86,7 @@ public class MainControllerTest {
 
     @Test
     public void loginUserValidateLogout() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(formLogin().user("user@gmail.com").password("password"))
+        MvcResult mvcResult = this.mockMvc.perform(formLogin().user(USER).password(PASS))
                 .andExpect(authenticated())
                 .andReturn();
 

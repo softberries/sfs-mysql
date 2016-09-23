@@ -3,7 +3,9 @@ package com.softwarepassion.sfs.repository.service;
 import com.softwarepassion.sfs.forms.RegistrationForm;
 import com.softwarepassion.sfs.model.Role;
 import com.softwarepassion.sfs.model.User;
+import com.softwarepassion.sfs.repository.RoleRepository;
 import com.softwarepassion.sfs.repository.UserRepository;
+import com.softwarepassion.sfs.repository.service.exception.UserAlreadyExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -15,8 +17,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,15 +30,20 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Page<User> searchByMultipleColumns(String searchTerm, Pageable pageable) {
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withIgnorePaths("password", "secret", "enabled", "roles")
+                .withIgnorePaths("password", "enabled", "roles")
                 .withMatcher("searchString", ExampleMatcher.GenericPropertyMatcher.of(ExampleMatcher.StringMatcher.CONTAINING).ignoreCase());
         Example<User> example = Example.of(new User(searchTerm), matcher);
         return userRepository.findAll(example, pageable);
@@ -52,7 +61,17 @@ public class UserService implements UserDetailsService {
 
     public void register(RegistrationForm registrationForm) {
         log.debug("Registration for: {}", registrationForm);
-        //todo: implement register new user method
+        if (emailExist(registrationForm.getEmail())) {
+            throw new UserAlreadyExistsException("There is an account already with that email address: " + registrationForm.getEmail());
+        }
+        final User user = new User();
+
+        user.setFirstName(registrationForm.getFirstName());
+        user.setLastName(registrationForm.getLastName());
+        user.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
+        user.setEmail(registrationForm.getEmail());
+        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER").get()));
+        userRepository.save(user);
     }
 
     @Override
@@ -69,5 +88,9 @@ public class UserService implements UserDetailsService {
 
     private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+    }
+
+    private boolean emailExist(final String email) {
+        return userRepository.findByEmail(email).isPresent();
     }
 }

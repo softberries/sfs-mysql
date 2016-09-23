@@ -51,7 +51,7 @@ public class UserServiceTest {
     @Test
     public void shouldFindSingleRecordByEmail() {
         //given
-        String searchTerm = "kjames0@mayoclinic.com";
+        String searchTerm = "kgrajek@gmail.com";
         Pageable pageable = new PageRequest(0, 100);
         //when
         Page<User> users = userService.searchByMultipleColumns(searchTerm, pageable);
