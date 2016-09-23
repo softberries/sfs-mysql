@@ -2,12 +2,17 @@
 -- generate your data with https://www.mockaroo.com/
 --
 INSERT INTO ROLE (id, name) VALUES (1, 'ROLE_USER');
-INSERT INTO PRIVILEGE (id, name) VALUES (1, 'ROLE_USER');
+INSERT INTO ROLE (id, name) VALUES (2, 'ROLE_ADMIN');
+INSERT INTO PRIVILEGE (id, name) VALUES (1, 'READ_PRIVILEGE');
+INSERT INTO PRIVILEGE (id, name) VALUES (2, 'WRITE_PRIVILEGE');
 INSERT INTO ROLE_PRIVILEGE (role_id, privilege_id) VALUES (1, 1);
+INSERT INTO ROLE_PRIVILEGE (role_id, privilege_id) VALUES (2, 1);
+INSERT INTO ROLE_PRIVILEGE (role_id, privilege_id) VALUES (2, 2);
 INSERT INTO USER (id, first_name, last_name, email, profile_image_url, search_string, password, secret, enabled) VALUES
   (1, 'Kathleen', 'James', 'kgrajek@gmail.com', 'http://dummyimage.com/32x32.png/cc0000/ffffff',
    '1 Kathleen James kgrajek@gmail.com', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', 'secret', true);
 INSERT INTO USER_ROLE (user_id, role_id) VALUES (1, 1);
+INSERT INTO USER_ROLE (user_id, role_id) VALUES (1, 2);
 
 
 
