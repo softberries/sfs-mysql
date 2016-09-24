@@ -84,7 +84,8 @@ public class User implements Serializable {
                 lastName,
                 email),
                 STRING_DELIMITER);
-        this.searchString = StringUtils.substring(fullSearchString, 0, 999);
+        this.searchString = fullSearchString.substring(0, fullSearchString.length() > 999 ?
+                999 : fullSearchString.length());
     }
 
 }

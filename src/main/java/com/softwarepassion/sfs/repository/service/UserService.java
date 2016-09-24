@@ -6,6 +6,7 @@ import com.softwarepassion.sfs.model.User;
 import com.softwarepassion.sfs.repository.RoleRepository;
 import com.softwarepassion.sfs.repository.UserRepository;
 import com.softwarepassion.sfs.repository.service.exception.UserAlreadyExistsException;
+import com.softwarepassion.sfs.util.GravatarService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -32,13 +33,15 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final GravatarService gravatarService;
 
     @Autowired
     public UserService(UserRepository userRepository, RoleRepository roleRepository,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder, GravatarService gravatarService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.gravatarService = gravatarService;
     }
 
     public Page<User> searchByMultipleColumns(String searchTerm, Pageable pageable) {
@@ -71,6 +74,8 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
         user.setEmail(registrationForm.getEmail());
         user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER").get()));
+        user.setProfileImageUrl(gravatarService.getGravatarURL(registrationForm.getEmail(), Optional.empty()));
+        user.setEnabled(false);
         userRepository.save(user);
     }
 
