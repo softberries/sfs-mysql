@@ -127,3 +127,8 @@ a.navbar-text-link {
     max-width: 32px;
     max-height: 32px;
 }
+
+/* Center checkoxes inside the table */
+td input[type="checkbox"] {
+    margin-left: 20px;
+}

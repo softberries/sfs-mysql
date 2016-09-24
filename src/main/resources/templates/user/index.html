@@ -53,13 +53,26 @@
                     {"data": "firstName"},
                     {"data": "lastName"},
                     {"data": "email"},
+                    {"data": "enabled", "searchable": false},
                     {"data": null, "orderable": false}
                 ],
-                "columnDefs": [{
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": "<button>View</button>"
-                }]
+                "columnDefs": [
+                    {
+                        targets: -1,
+                        data: null,
+                        defaultContent: "<button>View</button>"
+                    },
+                    {
+                        render: function (data, type, row) {
+                            if (data) {
+                                return "<input type='checkbox' checked onclick='return false;'>";
+                            } else {
+                                return "<input type='checkbox' onclick='return false;'>";
+                            }
+                        },
+                        width: "60px",
+                        targets: -2
+                    }]
             });
             $('#example tbody').on('click', 'button', function () {
                 var data = table.row($(this).parents('tr')).data();
@@ -141,6 +154,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
+                    <th>Enabled</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -150,6 +164,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
+                    <th>Enabled</th>
                     <th>Action</th>
                 </tr>
                 </tfoot>
