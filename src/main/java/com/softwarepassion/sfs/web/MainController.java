@@ -2,12 +2,14 @@ package com.softwarepassion.sfs.web;
 
 import com.softwarepassion.sfs.model.User;
 import com.softwarepassion.sfs.repository.UserRepository;
+import com.softwarepassion.sfs.repository.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -18,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class MainController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public MainController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public MainController(UserService userService) {
+        this.userService = userService;
     }
 
     @RequestMapping("/")
@@ -39,7 +41,7 @@ public class MainController {
     public String userIndex(ModelMap model,
                             @SortDefault(value = "id", direction = Sort.Direction.DESC)
                             @PageableDefault(size = 1000) Pageable pageable) {
-        User user = userRepository.findOne(1L);
+        UserDetails user = userService.loadUserByUsername("kgrajek@gmail.com");
         model.addAttribute("loggedInUser", user);
         return "user/index";
     }
