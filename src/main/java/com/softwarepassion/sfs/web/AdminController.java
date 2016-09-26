@@ -9,40 +9,28 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
+@RequestMapping("/admin")
 @Slf4j
-public class MainController {
+public class AdminController {
 
     private final UserRepository userRepository;
 
     @Autowired
-    public MainController(UserRepository userRepository) {
+    public AdminController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    @RequestMapping("/")
-    public String root() {
-        return "redirect:/index";
-    }
-
     @RequestMapping("/index")
-    public String index() {
-        return "index";
+    public String adminIndex(ModelMap model,
+                             @SortDefault(value = "id", direction = Sort.Direction.DESC)
+                             @PageableDefault(size = 1000) Pageable pageable) {
+        User user = userRepository.findOne(1L);
+        model.addAttribute("loggedInUser", user);
+        return "admin/index";
     }
 
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @RequestMapping("/login-error")
-    public String loginError(Model model) {
-        model.addAttribute("loginError", true);
-        return "login";
-    }
 }

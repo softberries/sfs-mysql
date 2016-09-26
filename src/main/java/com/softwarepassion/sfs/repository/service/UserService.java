@@ -13,6 +13,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,6 +45,7 @@ public class UserService implements UserDetailsService {
         this.gravatarService = gravatarService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public Page<User> searchByMultipleColumns(String searchTerm, Pageable pageable) {
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnorePaths("password", "enabled", "roles")

@@ -48,7 +48,7 @@ public class MainControllerTest {
 
     @Test
     public void accessProtectedRedirectsToLogin() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(get("/user/index"))
+        MvcResult mvcResult = this.mockMvc.perform(get("/admin/index"))
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
 

@@ -28,7 +28,7 @@ public class UserResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    DataTableWrapper<User> readBookmarks(@ModelAttribute DataTableCriterias criterias) {
+    DataTableWrapper<User> readUsers(@ModelAttribute DataTableCriterias criterias) {
         Pageable pageable = pageFactory.getPageableFromCriterias(criterias);
         Page<User> page = userService.searchByMultipleColumns(
                 criterias.getSearch().get(DataTableCriterias.SearchCriterias.value),

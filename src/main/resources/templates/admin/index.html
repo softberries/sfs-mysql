@@ -9,14 +9,14 @@
     <meta name="author" content="softwarepassion.com"/>
     <title>Dashboard Spring Fast Starter Application</title>
     <th:block th:replace="fragments/common :: head_scripts">######### Common Scripts ############</th:block>
-    <th:block th:replace="fragments/usercontent :: scripts">######### User Content Scripts ############</th:block>
+    <th:block th:replace="fragments/admincontent :: scripts">######### Main Content Scripts ############</th:block>
 </head>
 <body>
 <div th:replace="fragments/navigation :: navigation">########## Navigation Content ############</div>
 <div class="container-fluid">
     <div class="row">
         <div th:replace="fragments/navigation :: leftmenu">########## Left Menu Content ###########</div>
-        <div th:replace="fragments/usercontent :: content">######### Main Content Goes Here</div>
+        <div th:replace="fragments/admincontent :: content">######### Main Content Goes Here</div>
     </div>
 </div>
 <div th:replace="fragments/footer :: footer">########## Footer Content ############</div>
