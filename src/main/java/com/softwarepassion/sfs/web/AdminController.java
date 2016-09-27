@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/admin")
 @Slf4j
@@ -25,11 +27,11 @@ public class AdminController {
     }
 
     @RequestMapping("/index")
-    public String adminIndex(ModelMap model,
+    public String adminIndex(HttpServletRequest request,
                              @SortDefault(value = "id", direction = Sort.Direction.DESC)
                              @PageableDefault(size = 1000) Pageable pageable) {
         User user = userRepository.findOne(1L);
-        model.addAttribute("loggedInUser", user);
+        request.getSession().setAttribute("loggedInUser", user);
         return "admin/index";
     }
 
