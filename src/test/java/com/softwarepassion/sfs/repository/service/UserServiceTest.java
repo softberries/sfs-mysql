@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertTrue;
@@ -23,6 +24,7 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
+    @WithMockUser(username = "ram", roles = {"ADMIN"})
     public void shouldFindAllRecords() {
         //given
         String searchTerm = null;
@@ -36,6 +38,7 @@ public class UserServiceTest {
     }
 
     @Test
+    @WithMockUser(username = "ram", roles = {"ADMIN"})
     public void shouldFindAllRecordsDividedByPage() {
         //given
         String searchTerm = null;
@@ -49,6 +52,7 @@ public class UserServiceTest {
     }
 
     @Test
+    @WithMockUser(username = "ram", roles = {"ADMIN"})
     public void shouldFindSingleRecordByEmail() {
         //given
         String searchTerm = "kgrajek@gmail.com";
