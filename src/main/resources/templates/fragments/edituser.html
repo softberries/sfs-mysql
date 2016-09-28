@@ -8,7 +8,7 @@
 
 <th:block th:fragment="scripts">
     <script>
-        $(function() {
+        $(function () {
             $('#toggle-two').bootstrapToggle({
                 on: 'Enabled',
                 off: 'Disabled'
@@ -17,32 +17,83 @@
     </script>
 </th:block>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" th:fragment="content">
-    <div class="well well-sm">
-        <div class="row">
-            <div class="col-sm-3 col-md-1">
-                <img src="http://placehold.it/100x100" alt="" class="img-rounded img-responsive"/>
-            </div>
-            <div class="col-sm-6 col-md-9">
-                <h4>Bhaumik Patel</h4>
-                <small><cite title="San Francisco, USA">San Francisco, USA <i
-                        class="glyphicon glyphicon-map-marker">
-                </i></cite></small>
-                <p>
-                    <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                    <br/>
-                    <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                    <br/>
-                    <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p>
-                <!-- Split button -->
-                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <span>Active: </span>
-                    <input type="checkbox" checked="true" data-toggle="toggle" data-on="Enabled" data-off="Disabled"/>
-                    <span>Associated role: </span>
-                    <input type="checkbox" checked="true" data-toggle="toggle" data-on="User" data-off="Admin" data-onstyle="success" data-offstyle="danger"/>
+    <div class="row">
+        <div class="col-sm-4 col-md-5">
+            <form class="form-horizontal" action="#" th:action="@{/user/update}" th:object="${userEdited}"
+                  method="post">
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                    <h4>Validation errors:</h4>
+                    <ul>
+                        <li th:each="e : ${#fields.detailedErrors()}" th:class="${e.global}? globalerr : fielderr">
+                            <span th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
+                            <span th:text="${e.message}">The error message</span>
+                        </li>
+                    </ul>
                 </div>
-            </div>
+                <fieldset>
+                    <div class="control-group">
+                        <!-- Username -->
+                        <label class="control-label" for="firstName">First Name</label>
+                        <div class="controls">
+                            <input type="text" id="firstName" name="firstName" placeholder="" class="form-control"
+                                   th:field="*{firstName}"/>
+                            <p th:if="${#fields.hasErrors('firstName')}" class="label label-danger">Wrong First Name</p>
+                            <p class="help-block">First Name can contain any letters or numbers, without spaces</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <!-- Username -->
+                        <label class="control-label" for="lastName">Last Name</label>
+                        <div class="controls">
+                            <input type="text" id="lastName" name="lastName" placeholder="" class="form-control"
+                                   th:field="*{lastName}"/>
+                            <p th:if="${#fields.hasErrors('lastName')}" class="label label-danger">Wrong Last Name</p>
+                            <p class="help-block">Last Name can contain any letters or numbers, without spaces</p>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <!-- E-mail -->
+                        <label class="control-label" for="email">E-mail</label>
+                        <div class="controls">
+                            <input type="text" id="email" name="email" placeholder="" class="form-control"
+                                   th:field="*{email}"/>
+                            <p th:if="${#fields.hasErrors('email')}" class="label label-danger">Wrong Email</p>
+                            <p class="help-block">Please provide your E-mail</p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <!-- Roles -->
+                        <label class="control-label" for="email">Associated Roles:</label>
+                        <div class="controls">
+                            <table class="table">
+                                <tr th:each="role : *{roles}">
+                                    <td><span th:text="${role.name}"></span>:</td>
+                                    <td class="col-align-right"><input type="checkbox" checked="true" data-toggle="toggle" data-on="Enabled"
+                                               data-off="Disabled"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><label class="control-label" for="email">Actions:</label></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Active: </span></td>
+                                    <td class="col-align-right"><input type="checkbox" checked="true" data-toggle="toggle" data-on="Enabled"
+                                               data-off="Disabled"/></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Reset password: </span></td>
+                                    <td class="col-align-right"><button class="btn btn-primary btn-col">Reset</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <button class="btn btn-lrg btn-primary">Save</button>
+                    </div>
+                </fieldset>
+            </form>
         </div>
-        <div th:text="${userEdited}"></div>
     </div>
 </div>
 

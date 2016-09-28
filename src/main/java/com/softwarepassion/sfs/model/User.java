@@ -63,15 +63,13 @@ public class User implements Serializable {
 
     public User() {
         this.enabled = false;
+        this.fullName = StringUtils.join(Arrays.asList(firstName, lastName), STRING_DELIMITER);
     }
 
     public User(String searchString) {
         this.enabled = false;
         this.searchString = searchString;
-    }
-
-    public String getFullName() {
-        return StringUtils.join(Arrays.asList(firstName, lastName), STRING_DELIMITER);
+        this.fullName = StringUtils.join(Arrays.asList(firstName, lastName), STRING_DELIMITER);
     }
 
     @PreUpdate
@@ -157,6 +155,14 @@ public class User implements Serializable {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getFullName() {
+        return StringUtils.join(Arrays.asList(firstName, lastName), STRING_DELIMITER);
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     @Override

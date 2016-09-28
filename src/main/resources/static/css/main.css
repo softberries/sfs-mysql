@@ -134,10 +134,21 @@ td input[type="checkbox"] {
 }
 
 /* User profile */
-.glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+.glyphicon {
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
 
 small {
     display: block;
     line-height: 1.428571429;
     color: #999;
+}
+
+.col-align-right {
+    text-align: right;
+}
+
+.btn-col {
+    min-width: 92px;
 }
