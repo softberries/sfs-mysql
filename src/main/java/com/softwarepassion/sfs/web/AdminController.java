@@ -30,8 +30,6 @@ public class AdminController {
     public String adminIndex(HttpServletRequest request,
                              @SortDefault(value = "id", direction = Sort.Direction.DESC)
                              @PageableDefault(size = 1000) Pageable pageable) {
-        User user = userRepository.findOne(1L);
-        request.getSession().setAttribute("loggedInUser", user);
         return "admin/index";
     }
 

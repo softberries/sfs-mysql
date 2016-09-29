@@ -7,6 +7,7 @@ import com.softwarepassion.sfs.repository.RoleRepository;
 import com.softwarepassion.sfs.repository.UserRepository;
 import com.softwarepassion.sfs.repository.service.exception.UserAlreadyExistsException;
 import com.softwarepassion.sfs.util.GravatarService;
+import com.softwarepassion.sfs.web.dto.LoggedInUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -88,9 +89,8 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("No user found with username: " + email);
         }
         User user = userOpt.get();
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(), user.getPassword(), user.isEnabled(), true, true,
-                true, getAuthorities(user.getRoles()));
+        return new LoggedInUser(user.getEmail(), user.getPassword(), user.isEnabled(), true, true,
+                true, getAuthorities(user.getRoles()), user.getFullName(), user.getProfileImageUrl(), user.getCreated().toString());
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {

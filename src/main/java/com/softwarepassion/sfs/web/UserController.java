@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -32,13 +33,11 @@ public class UserController {
     public String userIndex(HttpServletRequest request,
                             @SortDefault(value = "id", direction = Sort.Direction.DESC)
                             @PageableDefault(size = 1000) Pageable pageable) {
-        User user = userRepository.findOne(1L);
-        request.getSession().setAttribute("loggedInUser", user);
         return "user/index";
     }
 
     @RequestMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model){
+    public String edit(@PathVariable Long id, Model model) {
         User user = userRepository.findOne(id);
         model.addAttribute("userEdited", user);
         return "user/edit";

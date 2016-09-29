@@ -23,8 +23,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle" id="drop5" role="button" data-toggle="dropdown" href="#">
-                            <span class="profile-img"><img th:src="${session.loggedInUser.profileImageUrl}"/> </span>
-                            <span th:text="${session.loggedInUser.fullName}"></span>
+                            <span class="profile-img"><img th:src="${#authentication.principal.profileImageUrl}"/> </span>
+                            <span th:text="${#authentication.principal.fullName}"></span>
                             <b class="caret"></b>
                         </a>
                         <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop5">
