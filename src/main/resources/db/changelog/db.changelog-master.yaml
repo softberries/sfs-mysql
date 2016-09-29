@@ -34,6 +34,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: created
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
                   name: enabled
                   type: boolean
               - column:

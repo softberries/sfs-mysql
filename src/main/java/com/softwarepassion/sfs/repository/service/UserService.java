@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
     @PreAuthorize("hasRole('ADMIN')")
     public Page<User> searchByMultipleColumns(String searchTerm, Pageable pageable) {
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withIgnorePaths("password", "enabled", "roles")
+                .withIgnorePaths("password", "enabled", "roles", "created")
                 .withMatcher("searchString", ExampleMatcher.GenericPropertyMatcher.of(ExampleMatcher.StringMatcher.CONTAINING).ignoreCase());
         Example<User> example = Example.of(new User(searchTerm), matcher);
         return userRepository.findAll(example, pageable);

@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -49,6 +50,9 @@ public class User implements Serializable {
 
     @Column(length = 60)
     private String password;
+
+    @Column
+    private Date created;
 
     private boolean enabled;
 
@@ -141,6 +145,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
@@ -175,6 +187,7 @@ public class User implements Serializable {
                 ", profileImageUrl='" + profileImageUrl + '\'' +
                 ", searchString='" + searchString + '\'' +
                 ", password='" + password + '\'' +
+                ", created=" + created +
                 ", enabled=" + enabled +
                 ", roles=" + roles +
                 ", fullName='" + fullName + '\'' +
