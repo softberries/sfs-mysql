@@ -1,11 +1,11 @@
 package com.softwarepassion.sfs.repository;
 
 import com.softwarepassion.sfs.model.Role;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface RoleRepository extends PagingAndSortingRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
     Optional<Role> findByName(String name);
 

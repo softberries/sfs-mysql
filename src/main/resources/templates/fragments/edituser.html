@@ -67,23 +67,43 @@
                         <!-- Roles -->
                         <label class="control-label" for="email">Associated Roles:</label>
                         <div class="controls">
+                            <!--<select class="form-control" th:field="*{roles}" multiple="multiple" >-->
+                                <!--<option th:each="role : ${roles}"-->
+                                        <!--th:field="*{roles}"-->
+                                        <!--th:value="${role.name}"-->
+                                        <!--th:text="${role.name}">Part name</option>-->
+                            <!--</select>-->
+                            <div th:each="hobby : *{roles}">
+                                <input type="checkbox" th:id="${hobby}" th:value="${hobby}" th:field="*{roles}" />
+                                <label th:for="${hobby}" th:text="${hobby.name}">Role</label>
+                            </div>
                             <table class="table">
-                                <tr th:each="role : *{roles}">
-                                    <td><span th:text="${role.name}"></span>:</td>
-                                    <td class="col-align-right"><input type="checkbox" checked="true" data-toggle="toggle" data-on="Enabled"
-                                               data-off="Disabled"/></td>
-                                </tr>
+
+                                <!--<tr th:each="role, stat : *{roles}">-->
+                                    <!--<td><span th:text="${role.name}"></span>:</td>-->
+                                    <!--<td class="col-align-right">-->
+                                        <!--<input type="checkbox"-->
+                                               <!--th:field="*{roles[__${stat.index}__]}"-->
+                                               <!--th:value="${role.name}"-->
+                                               <!--th:checked="${role.enabled}"-->
+                                               <!--data-toggle="toggle"-->
+                                               <!--data-on="Enabled"-->
+                                               <!--data-off="Disabled"/></td>-->
+                                <!--</tr>-->
                                 <tr>
                                     <td colspan="2"><label class="control-label" for="email">Actions:</label></td>
                                 </tr>
                                 <tr>
                                     <td><span>Active: </span></td>
-                                    <td class="col-align-right"><input type="checkbox" checked="true" data-toggle="toggle" data-on="Enabled"
-                                               data-off="Disabled"/></td>
+                                    <td class="col-align-right"><input type="checkbox" th:checked="*{enabled}"
+                                                                       data-toggle="toggle" data-on="Enabled"
+                                                                       data-off="Disabled"/></td>
                                 </tr>
                                 <tr>
                                     <td><span>Reset password: </span></td>
-                                    <td class="col-align-right"><button class="btn btn-primary btn-col">Reset</button></td>
+                                    <td class="col-align-right">
+                                        <button class="btn btn-primary btn-col">Reset</button>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

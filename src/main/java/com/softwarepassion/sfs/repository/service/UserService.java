@@ -8,6 +8,7 @@ import com.softwarepassion.sfs.repository.UserRepository;
 import com.softwarepassion.sfs.repository.service.exception.UserAlreadyExistsException;
 import com.softwarepassion.sfs.util.GravatarService;
 import com.softwarepassion.sfs.web.dto.LoggedInUser;
+import com.softwarepassion.sfs.web.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -99,5 +100,9 @@ public class UserService implements UserDetailsService {
 
     private boolean emailExist(final String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    public void updateUser(UserDTO userDTO) {
+        log.info("Updating user: " + userDTO);
     }
 }
