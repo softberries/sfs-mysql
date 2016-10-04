@@ -26,7 +26,7 @@ public class UserDTOSpec {
         List<Role> userRoles = Lists.newArrayList(new Role(1L, "ADMIN"), new Role(2L, "USER"));
         user.setRoles(userRoles);
         //when
-        UserDTO result = UserDTO.fromUser(user, allRoles);
+        UserDTO result = UserDTO.fromUser(user);
         //then
         assertThat(result.getRoles(), (Every.everyItem(hasProperty("enabled", is(true)))));
     }
@@ -37,7 +37,7 @@ public class UserDTOSpec {
         List<Role> userRoles = Lists.newArrayList(new Role(1L, "ADMIN"));
         user.setRoles(userRoles);
         //when
-        UserDTO result = UserDTO.fromUser(user, allRoles);
+        UserDTO result = UserDTO.fromUser(user);
         //then
         assertThat(result.getRoles(), contains(
                 hasProperty("enabled", is(true)),

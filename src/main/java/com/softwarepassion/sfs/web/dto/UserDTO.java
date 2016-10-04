@@ -49,13 +49,13 @@ public class UserDTO implements Serializable {
     public UserDTO() {
     }
 
-    public static UserDTO fromUser(User user, List<Role> allRoles) {
+    public static UserDTO fromUser(User user) {
         return new UserDTO(user.getFirstName(), user.getLastName(), user.getEmail(),
-                user.getFullName(), dateStr(null), user.isEnabled(), getRoleDTOs(allRoles, user.getRoles()));
+                user.getFullName(), dateStr(null), user.isEnabled(), getRoleDTOs(user.getRoles()));
     }
 
-    private static List<RoleDTO> getRoleDTOs(Collection<Role> allRoles, Collection<Role> userRoles) {
-        return allRoles.stream().map(r -> new RoleDTO(r.getName(), userRoles.contains(r))).collect(Collectors.toList());
+    public static List<RoleDTO> getRoleDTOs(Collection<Role> userRoles) {
+        return userRoles.stream().map(r -> new RoleDTO(r.getId().toString(), r.getName())).collect(Collectors.toList());
     }
 
     private static String dateStr(Object o) {

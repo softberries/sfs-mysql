@@ -1,7 +1,5 @@
 package com.softwarepassion.sfs.web;
 
-import com.softwarepassion.sfs.forms.RegistrationForm;
-import com.softwarepassion.sfs.model.Role;
 import com.softwarepassion.sfs.model.User;
 import com.softwarepassion.sfs.repository.RoleRepository;
 import com.softwarepassion.sfs.repository.UserRepository;
@@ -15,7 +13,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -56,8 +51,8 @@ public class UserController {
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         User user = userRepository.findOne(id);
-        List<Role> allRoles = roleRepository.findAll();
-        model.addAttribute("userEdited", UserDTO.fromUser(user, allRoles));
+        model.addAttribute("userEdited", UserDTO.fromUser(user));
+        model.addAttribute("allRoles", UserDTO.getRoleDTOs(roleRepository.findAll()));
         return "user/edit";
     }
 

@@ -1,21 +1,15 @@
 package com.softwarepassion.sfs.web.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
+import java.util.Objects;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
 public class RoleDTO implements Serializable {
     private String name;
-    private boolean enabled;
+    private String id;
 
-    public RoleDTO(String name, boolean enabled) {
+    public RoleDTO(String id, String name) {
         this.name = name;
-        this.enabled = enabled;
+        this.id = id;
     }
 
     public RoleDTO() {
@@ -29,38 +23,41 @@ public class RoleDTO implements Serializable {
         this.name = name;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public String getId() {
+        return id;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        RoleDTO roleDTO = (RoleDTO) o;
-
-        if (isEnabled() != roleDTO.isEnabled()) return false;
-        return getName() != null ? getName().equals(roleDTO.getName()) : roleDTO.getName() == null;
-
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
     public int hashCode() {
-        int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (isEnabled() ? 1 : 0);
-        return result;
+        int hash = 5;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RoleDTO other = (RoleDTO) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
         return "RoleDTO{" +
                 "name='" + name + '\'' +
-                ", enabled=" + enabled +
+                ", id='" + id + '\'' +
                 '}';
     }
 }

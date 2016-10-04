@@ -9,13 +9,14 @@ import java.util.Locale;
 public class RoleFormatter implements Formatter<RoleDTO> {
 
     @Override
-    public String print(RoleDTO role, Locale locale) {
-        return role.getName();
+    public String print(RoleDTO roleDto, Locale locale) {
+        return roleDto.getId();
     }
 
     @Override
-    public RoleDTO parse(String name, Locale locale) throws ParseException {
-        RoleDTO role = new RoleDTO(name, false);
-        return role;
+    public RoleDTO parse(String id, Locale locale) throws ParseException {
+        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setId(id);
+        return roleDTO;
     }
 }
