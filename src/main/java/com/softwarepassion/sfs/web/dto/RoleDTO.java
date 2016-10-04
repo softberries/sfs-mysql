@@ -47,17 +47,7 @@ public class RoleDTO implements Serializable {
             return false;
         }
         final RoleDTO other = (RoleDTO) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
-    @Override
-    public String toString() {
-        return "RoleDTO{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                '}';
-    }
 }

@@ -3,9 +3,6 @@ package com.softwarepassion.sfs.web.dto;
 
 import com.softwarepassion.sfs.model.Role;
 import com.softwarepassion.sfs.model.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
@@ -14,9 +11,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
 public class UserDTO implements Serializable {
 
     @NotNull
@@ -120,22 +114,22 @@ public class UserDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         UserDTO userDTO = (UserDTO) o;
 
-        if (isEnabled() != userDTO.isEnabled()) return false;
-        if (getFirstName() != null ? !getFirstName().equals(userDTO.getFirstName()) : userDTO.getFirstName() != null)
-            return false;
-        if (getLastName() != null ? !getLastName().equals(userDTO.getLastName()) : userDTO.getLastName() != null)
-            return false;
-        if (getEmail() != null ? !getEmail().equals(userDTO.getEmail()) : userDTO.getEmail() != null) return false;
-        if (getFullName() != null ? !getFullName().equals(userDTO.getFullName()) : userDTO.getFullName() != null)
-            return false;
-        if (getDateCreated() != null ? !getDateCreated().equals(userDTO.getDateCreated()) : userDTO.getDateCreated() != null)
-            return false;
-        return getRoles() != null ? getRoles().equals(userDTO.getRoles()) : userDTO.getRoles() == null;
+        return isEnabled() == userDTO.isEnabled() && (getFirstName() != null
+                ? getFirstName().equals(userDTO.getFirstName()) : userDTO.getFirstName() == null
+                && (getLastName() != null ? getLastName().equals(userDTO.getLastName()) : userDTO.getLastName() == null
+                && (getEmail() != null ? getEmail().equals(userDTO.getEmail()) : userDTO.getEmail() == null
+                && (getFullName() != null ? getFullName().equals(userDTO.getFullName()) : userDTO.getFullName() == null
+                && (getDateCreated() != null ? getDateCreated().equals(userDTO.getDateCreated()) : userDTO.getDateCreated() == null
+                && (getRoles() != null ? getRoles().equals(userDTO.getRoles()) : userDTO.getRoles() == null))))));
 
     }
 
@@ -149,18 +143,5 @@ public class UserDTO implements Serializable {
         result = 31 * result + (isEnabled() ? 1 : 0);
         result = 31 * result + (getRoles() != null ? getRoles().hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", dateCreated='" + dateCreated + '\'' +
-                ", enabled=" + enabled +
-                ", roles=" + roles +
-                '}';
     }
 }

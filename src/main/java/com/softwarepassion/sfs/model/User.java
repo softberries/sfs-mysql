@@ -2,7 +2,6 @@ package com.softwarepassion.sfs.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import org.thymeleaf.util.StringUtils;
 
@@ -177,20 +176,4 @@ public class User implements Serializable {
         this.fullName = fullName;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", profileImageUrl='" + profileImageUrl + '\'' +
-                ", searchString='" + searchString + '\'' +
-                ", password='" + password + '\'' +
-                ", created=" + created +
-                ", enabled=" + enabled +
-                ", roles=" + roles +
-                ", fullName='" + fullName + '\'' +
-                '}';
-    }
 }
