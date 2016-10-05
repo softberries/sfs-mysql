@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 public class UserDTO implements Serializable {
 
     @NotNull
+    private Long id;
+
+    @NotNull
     @NotEmpty
     private String firstName;
 
@@ -30,7 +33,8 @@ public class UserDTO implements Serializable {
     private boolean enabled;
     private List<RoleDTO> roles;
 
-    public UserDTO(String firstName, String lastName, String email, String fullName, String dateCreated, boolean enabled, List<RoleDTO> roles) {
+    public UserDTO(Long id, String firstName, String lastName, String email, String fullName, String dateCreated, boolean enabled, List<RoleDTO> roles) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -44,12 +48,20 @@ public class UserDTO implements Serializable {
     }
 
     public static UserDTO fromUser(User user) {
-        return new UserDTO(user.getFirstName(), user.getLastName(), user.getEmail(),
+        return new UserDTO(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(),
                 user.getFullName(), dateStr(null), user.isEnabled(), getRoleDTOs(user.getRoles()));
     }
 
     public static List<RoleDTO> getRoleDTOs(Collection<Role> userRoles) {
         return userRoles.stream().map(r -> new RoleDTO(r.getId().toString(), r.getName())).collect(Collectors.toList());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     private static String dateStr(Object o) {
@@ -127,6 +139,7 @@ public class UserDTO implements Serializable {
                 ? getFirstName().equals(userDTO.getFirstName()) : userDTO.getFirstName() == null
                 && (getLastName() != null ? getLastName().equals(userDTO.getLastName()) : userDTO.getLastName() == null
                 && (getEmail() != null ? getEmail().equals(userDTO.getEmail()) : userDTO.getEmail() == null
+//                && (getId() != null ? getId().equals(userDTO.getId()) : userDTO.getId() == null
                 && (getFullName() != null ? getFullName().equals(userDTO.getFullName()) : userDTO.getFullName() == null
                 && (getDateCreated() != null ? getDateCreated().equals(userDTO.getDateCreated()) : userDTO.getDateCreated() == null
                 && (getRoles() != null ? getRoles().equals(userDTO.getRoles()) : userDTO.getRoles() == null))))));

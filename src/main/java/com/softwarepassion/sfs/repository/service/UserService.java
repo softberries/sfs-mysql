@@ -62,8 +62,12 @@ public class UserService implements UserDetailsService {
 
     public boolean isEmailDuplicated(String email) {
         log.debug("Email duplication check for {}", email);
-        //todo: implement email duplication check
-        return false;
+        return userRepository.findByEmail(email).isPresent();
+    }
+
+    public boolean validateEmailForUpdate(Long id, String email) {
+        User user = userRepository.findOne(id);
+        return user.getEmail().trim().equalsIgnoreCase(email) || !isEmailDuplicated(email);
     }
 
     public void register(RegistrationForm registrationForm) {
@@ -103,6 +107,6 @@ public class UserService implements UserDetailsService {
     }
 
     public void updateUser(UserDTO userDTO) {
-        log.info("Updating user: " + userDTO);
+        log.info("Updating user: " + userDTO.getId());
     }
 }

@@ -64,4 +64,15 @@ public class UserServiceTest {
         assertTrue(users.getTotalElements() == 1);
         assertTrue(users.getTotalPages() == 1);
     }
+
+    @Test
+    @WithMockUser(username = "ram", roles = {"ADMIN"})
+    public void shouldFindEmailDuplication() {
+        //given
+        String email = "kgrajek@gmail.com";
+        //when
+        boolean result = userService.isEmailDuplicated(email);
+        //then
+        assertTrue(result);
+    }
 }

@@ -59,7 +59,7 @@ public class UserController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ModelAndView updateUser(@Valid UserDTO userDTO, BindingResult result, Errors errors) {
         log.info("###### USER DTO: " + userDTO);
-        if (userService.isEmailDuplicated(userDTO.getEmail())) {
+        if (!userService.validateEmailForUpdate(userDTO.getId(), userDTO.getEmail())) {
             result.rejectValue("email", "message.registrationError");
         }
         if (result.hasErrors()) {
