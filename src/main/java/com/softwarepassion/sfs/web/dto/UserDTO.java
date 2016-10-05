@@ -4,7 +4,6 @@ package com.softwarepassion.sfs.web.dto;
 import com.softwarepassion.sfs.model.Role;
 import com.softwarepassion.sfs.model.User;
 import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
@@ -139,7 +138,6 @@ public class UserDTO implements Serializable {
                 ? getFirstName().equals(userDTO.getFirstName()) : userDTO.getFirstName() == null
                 && (getLastName() != null ? getLastName().equals(userDTO.getLastName()) : userDTO.getLastName() == null
                 && (getEmail() != null ? getEmail().equals(userDTO.getEmail()) : userDTO.getEmail() == null
-//                && (getId() != null ? getId().equals(userDTO.getId()) : userDTO.getId() == null
                 && (getFullName() != null ? getFullName().equals(userDTO.getFullName()) : userDTO.getFullName() == null
                 && (getDateCreated() != null ? getDateCreated().equals(userDTO.getDateCreated()) : userDTO.getDateCreated() == null
                 && (getRoles() != null ? getRoles().equals(userDTO.getRoles()) : userDTO.getRoles() == null))))));
