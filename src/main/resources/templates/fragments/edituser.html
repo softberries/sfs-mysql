@@ -19,6 +19,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" th:fragment="content">
     <div class="row">
         <div class="col-sm-4 col-md-5">
+            <h2>Edit User Details</h2>
             <form class="form-horizontal" action="#" th:action="@{/user/update}" th:object="${userEdited}" method="post">
                 <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
                     <h4>Validation errors:</h4>
@@ -65,15 +66,20 @@
                     </div>
                     <div class="control-group">
                         <!-- Roles -->
-                        <label class="control-label" for="email">Associated Roles:</label>
+                        <label class="control-label" for="email">Additional Info:</label>
                         <div class="controls">
-                            <div th:each="role : ${allRoles}">
-                                <input type="checkbox" th:id="${{role}}" th:value="${{role}}" th:field="*{roles}" />
-                                <label th:for="${{role}}" th:text="${role.name}">Role</label>
-                            </div>
                             <table class="table">
                                 <tr>
-                                    <td colspan="2"><label class="control-label" for="email">Actions:</label></td>
+                                    <td colspan="2"><span class="control-label">Associated Roles:</span></td>
+                                </tr>
+                                <tr th:each="role : ${allRoles}">
+                                    <td><label th:for="${{role}}" th:text="${role.name}">Role</label></td>
+                                    <td class="col-align-right"><input type="checkbox" th:id="${{role}}" th:value="${{role}}" th:field="*{roles}"
+                                               data-toggle="toggle" data-on="Enabled"
+                                               data-off="Disabled"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><span class="control-label">Actions:</span></td>
                                 </tr>
                                 <tr>
                                     <td><span>Active: </span></td>

@@ -8,6 +8,7 @@ import com.softwarepassion.sfs.repository.UserRepository;
 import com.softwarepassion.sfs.repository.service.exception.UserAlreadyExistsException;
 import com.softwarepassion.sfs.util.GravatarService;
 import com.softwarepassion.sfs.web.dto.LoggedInUser;
+import com.softwarepassion.sfs.web.dto.RoleDTO;
 import com.softwarepassion.sfs.web.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.springframework.util.StringUtils.isEmpty;
 
 @Service
 @Slf4j
@@ -112,6 +116,14 @@ public class UserService implements UserDetailsService {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setProfileImageUrl(gravatarService.getGravatarURL(userDTO.getEmail(), Optional.empty()));
+        user.setRoles(updateUserRoles(userDTO.getRoles()));
         userRepository.save(user);
+    }
+
+    private Collection<Role> updateUserRoles(List<RoleDTO> roles) {
+        return roleRepository.findByIdIn(roles.stream()
+                .filter(r -> !isEmpty(r.getId()))
+                .map(r -> Long.parseLong(r.getId()))
+                .collect(Collectors.toList()));
     }
 }
