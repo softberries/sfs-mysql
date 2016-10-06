@@ -77,7 +77,8 @@
                                 </tr>
                                 <tr>
                                     <td><span>Active: </span></td>
-                                    <td class="col-align-right"><input type="checkbox" th:value="*{enabled}"
+                                    <td class="col-align-right">
+                                        <input type="checkbox" th:checked="*{enabled}" th:field="*{enabled}"
                                                                        data-toggle="toggle" data-on="Enabled"
                                                                        data-off="Disabled"/></td>
                                 </tr>

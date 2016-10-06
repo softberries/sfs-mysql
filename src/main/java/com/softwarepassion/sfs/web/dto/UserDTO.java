@@ -32,7 +32,10 @@ public class UserDTO implements Serializable {
     private boolean enabled;
     private List<RoleDTO> roles;
 
-    public UserDTO(Long id, String firstName, String lastName, String email, String fullName, String dateCreated, boolean enabled, List<RoleDTO> roles) {
+    public UserDTO(Long id, String firstName,
+                   String lastName, String email,
+                   String fullName, String dateCreated,
+                   boolean enabled, List<RoleDTO> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

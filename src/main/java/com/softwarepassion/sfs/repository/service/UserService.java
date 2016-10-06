@@ -107,6 +107,11 @@ public class UserService implements UserDetailsService {
     }
 
     public void updateUser(UserDTO userDTO) {
-        log.info("Updating user: " + userDTO.getId());
+        User user = userRepository.findOne(userDTO.getId());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setEmail(userDTO.getEmail());
+        user.setProfileImageUrl(gravatarService.getGravatarURL(userDTO.getEmail(), Optional.empty()));
+        userRepository.save(user);
     }
 }
