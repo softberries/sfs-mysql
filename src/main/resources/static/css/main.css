@@ -2,9 +2,12 @@
  * Base structure
  */
 
-/* Move down content because we have a fixed navbar that is 50px tall */
-body {
+* {
+    margin: 0;
+}
 
+html, body {
+    height: 100%;
 }
 
 /*
@@ -39,7 +42,6 @@ body {
         top: 51px;
         bottom: 0;
         left: 0;
-        z-index: 1000;
         display: block;
         padding: 20px;
         overflow-x: hidden;
@@ -151,4 +153,19 @@ small {
 
 .btn-col {
     min-width: 92px;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.footer {
+    height: 155px;
+    background-color: #222;
+    color: #fff;
+    padding-top: 20px;
+    position: relative;
 }

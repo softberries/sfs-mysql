@@ -19,7 +19,7 @@
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
-            <form name="logoutForm" action="#" th:action="@{/logout}" method="post">
+            <form  sec:authorize="isAuthenticated()" name="logoutForm" action="#" th:action="@{/logout}" method="post">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle" id="drop5" role="button" data-toggle="dropdown" href="#">
