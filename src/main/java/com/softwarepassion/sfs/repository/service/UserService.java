@@ -115,6 +115,7 @@ public class UserService implements UserDetailsService {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
+        user.setEnabled(userDTO.isEnabled());
         user.setProfileImageUrl(gravatarService.getGravatarURL(userDTO.getEmail(), Optional.empty()));
         user.setRoles(updateUserRoles(userDTO.getRoles()));
         userRepository.save(user);
