@@ -17,6 +17,9 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AccountStatusException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -98,6 +101,9 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("No user found with username: " + email);
         }
         User user = userOpt.get();
+        if(!user.isEnabled()){
+            throw new DisabledException("User must be active to be able to log in");
+        }
         return new LoggedInUser(user.getEmail(), user.getPassword(), user.isEnabled(), true, true,
                 true, getAuthorities(user.getRoles()), user.getFullName(), user.getProfileImageUrl(), user.getCreated().toString());
     }

@@ -39,4 +39,9 @@ public class MainController {
         model.addAttribute("loginError", true);
         return "login";
     }
+
+    @RequestMapping("/403")
+    public String accessDenied() {
+        return "errors/403";
+    }
 }
