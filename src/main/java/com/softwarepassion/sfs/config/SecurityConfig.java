@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/webjars/**", "/fragments/**", "/images/**", "/index", "/register").permitAll()
                 .antMatchers("/admin/**").hasAnyRole(ADMIN_ROLE)
-                .antMatchers("/user/**").hasAnyRole(USER_ROLE)
+                .antMatchers("/user/**").hasAnyRole(ADMIN_ROLE, USER_ROLE)
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
