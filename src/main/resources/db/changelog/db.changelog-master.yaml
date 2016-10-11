@@ -133,3 +133,35 @@ databaseChangeLog:
             baseColumnNames:  privilege_id
             referencedTableName:  privilege
             referencedColumnNames: id
+        - createTable:
+            tableName: notification
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: uuid
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  constraintName: fk_notification_user
+                  baseTableName:  notification
+                  baseColumnNames:  user_id
+                  referencedTableName:  user
+                  referencedColumnNames: id
+

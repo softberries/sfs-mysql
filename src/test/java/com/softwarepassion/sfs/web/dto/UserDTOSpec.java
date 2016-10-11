@@ -17,7 +17,7 @@ public class UserDTOSpec {
     private List<Role> allRoles = Lists.newArrayList(new Role(1L, "ADMIN"), new Role(2L, "USER"));
     private User user = new User(1L, "Krzysztof", "Gra", "kgr@gmail.com",
             "http://blahblah.com", "--------", "pass",
-            new Date(), true, Lists.emptyList(), "Krzysztof Gra");
+            new Date(), Lists.emptyList(), true, Lists.emptyList(), "Krzysztof Gra");
 
     @Test
     public void shouldGenerateProperUserDTOWithAllRoles() {
