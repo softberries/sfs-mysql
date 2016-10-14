@@ -3,6 +3,7 @@ package com.softwarepassion.sfs.web;
 import com.softwarepassion.sfs.model.User;
 import com.softwarepassion.sfs.repository.RoleRepository;
 import com.softwarepassion.sfs.repository.UserRepository;
+import com.softwarepassion.sfs.repository.service.NotificationService;
 import com.softwarepassion.sfs.repository.service.UserService;
 import com.softwarepassion.sfs.web.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +35,17 @@ public class UserController {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserService userService;
+    private final NotificationService notificationService;
 
     @Autowired
     public UserController(UserRepository userRepository,
                           RoleRepository roleRepository,
-                          UserService userService) {
+                          UserService userService,
+                          NotificationService notificationService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userService = userService;
+        this.notificationService = notificationService;
     }
 
     @RequestMapping("/index")
@@ -57,6 +61,14 @@ public class UserController {
         model.addAttribute("userEdited", UserDTO.fromUser(user));
         model.addAttribute("allRoles", UserDTO.getRoleDTOs(roleRepository.findAll()));
         return "user/edit";
+    }
+
+    @RequestMapping("/resetPassword/{id}")
+    public String resetPassword(@PathVariable Long id) {
+        User user = userRepository.findOne(id);
+        String uuid = notificationService.createResetPasswordNotification(user);
+        log.info("Reset password uuid generated: " + uuid);
+        return "password/resetPasswordInfo";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)

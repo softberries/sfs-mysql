@@ -33,7 +33,7 @@ public class NotificationService {
         return uuid;
     }
 
-    public Optional<Notification> findByUuid(String uuid){
+    public Optional<Notification> findByUuid(String uuid) {
         return notificationRepository.findByUuid(uuid);
     }
 }

@@ -159,6 +159,9 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: sent
+                  type: boolean
+              - column:
                   name: user_id
                   type: int
                   constraints:
